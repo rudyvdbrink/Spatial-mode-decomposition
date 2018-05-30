@@ -58,9 +58,10 @@ Ca2 = squeeze(mean(C2(:,2,:,:),1)); %covariance atomoxetine, averaged across par
 [V,lambda] = eig(Ca,Cp); %decompose (atomoxetine > placebo)
 % [V,lambda] = eig(Cp,Ca); %decompose (placebo > atomoxetine) (eq. 4 in the article)
 
-V = V(:,end:-1:1); %sort in decending order
+[~, I] = sort(diag(lambda),'descend'); %sort in decending order
+lambda = lambda(I,I); %sort in decending order
+V = V(:,I); %sort V by lambda
 l_sum = sum(diag(lambda)); %get the sum of eigenvalues
-lambda = lambda(end:-1:1,end:-1:1); %sort in decending order
 
 %Compute mode time series
 %These you would use as regressors onto the voxel-level data to produce
@@ -135,16 +136,18 @@ box off
 %decompose based on first half of data (eq. 4 in the article)
 [V1,lambda1] = eig(Ca1, Cp1); % (atomoxetine > placebo)
 % [V1,lambda1] = eig(Cp1, Ca1); % (placebo > atomoxetine)  
-l_sum1 = sum(diag(lambda1)); %sum of eigenvalues
-V1 = V1(:,end:-1:1);
-lambda1 = lambda1(end:-1:1,end:-1:1);
+[~, I] = sort(diag(lambda1),'descend'); %sort in decending order
+lambda1 = lambda1(I,I); %sort in decending order
+V1 = V1(:,I); %sort V by lambda
+l_sum1 = sum(diag(lambda1)); %get the sum of eigenvalues
 
 %decompose based on second half of data (eq. 4 in the article)
 [V2,lambda2] = eig(Ca2, Cp2); % (atomoxetine > placebo)
 % [V2,lambda2] = eig(Cp2, Ca2); % (placebo > atomoxetine)  
-l_sum2 = sum(diag(lambda2)); %sum of eigenvalues
-V2 = V2(:,end:-1:1);
-lambda2 = lambda2(end:-1:1,end:-1:1);
+[~, I] = sort(diag(lambda2),'descend'); %sort in decending order
+lambda2 = lambda2(I,I); %sort in decending order
+V2 = V2(:,I); %sort V by lambda
+l_sum2 = sum(diag(lambda2)); %get the sum of eigenvalues
 
 %get first and second half of data to project modes onto
 M1 = M(:,:,1:size(M,3)/2,:);
@@ -251,12 +254,13 @@ ss = zeros(size(M,1),size(M,2),nbins,nsecs); %his will contain mode variance for
 %loop over bins, decompose for each bin, and compute mode variance for the
 %20 segments of remaining TRs 
 for bini = 1:nbins
-    %decompose
+     %decompose
     [V, lambda] = eig(squeeze(mean(C_r(:,2,bini,:,:),1)),squeeze(mean(C_r(:,1,bini,:,:),1))); % (atomoxetine > placebo)
-%     [V, lambda] = eig(squeeze(mean(C_r(:,1,bini,:,:),1)),squeeze(mean(C_r(:,2,bini,:,:),1))); % (placebo > atomoxetine)  
+%     [V, lambda] = eig(squeeze(mean(C_r(:,1,bini,:,:),1)),squeeze(mean(C_r(:,2,bini,:,:),1))); % (placebo > atomoxetine)
+    [~, I] = sort(diag(lambda),'descend'); %sort in decending order
+    lambda = lambda(I,I); %sort in decending order
+    V = V(:,I); %sort V by lambda
     l_sum = sum(diag(lambda)); %get the sum of eigenvalues
-    V = V(:,end:-1:1); %re-arrange p such that the first column has the highest eigenvalue (sort descending)
-    lambda = lambda(end:-1:1,end:-1:1); %do the same for lambda (sort descending)
     
     for subi = 1:size(M,1) %loop over participants
         for condi = 1:2 %loop over conditions
