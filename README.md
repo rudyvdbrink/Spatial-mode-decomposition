@@ -18,4 +18,4 @@ There are four relevant files:
 Ruud van den Brink, 2017
 
 If you use any of this this code for a publication, please cite: 
-van den Brink, Nieuwenhuis, & Donner (2018) Amplification and Suppression of Distinct Brain-wide Activity Patterns by Catecholamines. https://www.biorxiv.org/content/early/2018/06/04/270645.full.pdf
+van den Brink, Nieuwenhuis, & Donner (2018) Amplification and Suppression of Distinct Brain-wide Activity Patterns by Catecholamines. https://www.biorxiv.org/content/early/2018/06/04/270645.full.pdf 
