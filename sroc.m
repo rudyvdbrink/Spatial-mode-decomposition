@@ -1,5 +1,5 @@
 function [auc, TP, FP] = sroc(A,B)
-%   ROC analysis to distinguis two conditions.
+%   ROC analysis to distinguish two conditions.
 %
 %   Usage: 
 %    [auc, TP, FP] = sroc(A,B)
