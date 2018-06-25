@@ -124,7 +124,7 @@ box off
 %direction (i.e. find patterns in which activity cofluctuates less
 %strongly), swap 'Ca' and Cp' in the relevant lines below. Also, change
 %the tail of the ptest at the end of the cell. You would also need to make
-%the neccesary changes to the code for ROC analysis (i.e. swap the inputs
+%the necessary changes to the code for ROC analysis (i.e. swap the inputs
 %in the decomposition lines, and swap the inputs in the ROC analysis
 %itself)
 %
